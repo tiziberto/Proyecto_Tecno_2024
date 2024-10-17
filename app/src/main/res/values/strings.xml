@@ -1,7 +1,40 @@
 <resources>
-    <string name="app_name">Proyecto_Tecno</string>
+    <string name="app_name">Find It!</string>
     <string name="title_activity_principal">Principal</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="channel_description">Description!</string>
+    <string name="notification_message">Welcome to APP </string>
+
+    <string name="subtitulo_splash">TECNOLOGIAS MOVILES</string>
+
+    <!-- Layouts regions -->
+    <string name="grid_layout_explanation">The grid is composed of a set of infinitely thin lines that separate the
+        viewing area into cells.
+    </string>
+    <string name="grid_layout_part_two">Throughout the API, grid lines are referenced by grid indices.</string>
+
+    <!-- color region -->
+    <string name="red">Red</string>
+    <string name="indigo">Indigo</string>
+    <string name="green">Green</string>
+    <string name="orange">Orange</string>
+    <string name="blue">Blue</string>
+    <string name="yellow">Yellow</string>>
+    <string name="grey">Grey</string>
+    <string name="bluegrey">Blue Grey</string>
+    <string name="amber">Amber</string>
+    <string name="teal">Teal</string>
+    <string name="deeppurple">Deep Purple</string>
+    <string name="cyan">Cyan</string>
+    <string name="brown">Brown</string>
+
+    <string name="your_credit_card_number">Su número de creditCard:</string>
+    <string name="dialog_message">Este es un AlertDialog!</string>
+    <string name="dialog_positive_button">Aceptar</string>
+    <string name="dialog_negative_button">Cancelar</string>
+    <string name="Open">Abrir</string>
+    <string name="Close">Cerrar</string>
+    <string name="title_activity_guit_hub_repo">GuitHubRepo</string>
 </resources>
