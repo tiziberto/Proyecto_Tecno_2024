@@ -13,6 +13,10 @@
         android:theme="@style/Theme.Proyecto_Tecno"
         tools:targetApi="31">
         <activity
+            android:name=".PantallaPrincipal"
+            android:exported="false"
+            android:label="@string/title_activity_pantalla_principal" />
+        <activity
             android:name=".solicitud_codigo"
             android:exported="false" />
         <activity

@@ -37,4 +37,6 @@
     <string name="Open">Abrir</string>
     <string name="Close">Cerrar</string>
     <string name="title_activity_guit_hub_repo">GuitHubRepo</string>
+    <string name="title_activity_pantalla_principal">PantallaPrincipal</string>
+    <string name="hello_dashboard">Hello Dashboard!</string>
 </resources>
