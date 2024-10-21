@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         val btn_login : Button = findViewById(R.id.cambiar_password)
         btn_login.setOnClickListener{
-            val intent: Intent = Intent(this, pantalla_inicio::class.java)
+            //val intent: Intent = Intent(this, pantalla::class.java)
             startActivity(intent)
         }
 
