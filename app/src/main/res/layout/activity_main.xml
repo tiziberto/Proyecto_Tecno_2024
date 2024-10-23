@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/cambiar_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contraseña_nueva"
+        app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintVertical_bias="0.311" />
 
     <ImageView
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/contraseña_nueva"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -69,6 +69,17 @@
         app:layout_constraintTop_toBottomOf="@+id/usuario" />
 
     <Button
+        android:id="@+id/togglePasswordVisibility"
+        android:layout_width="91dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text="🙉️"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/usuario" />
+
+    <Button
         android:id="@+id/cambiar_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contraseña_nueva" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:id="@+id/nombre"
