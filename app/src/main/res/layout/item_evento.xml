@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/background_dark">
 
     <ImageView
         android:id="@+id/imageEvento"
@@ -13,41 +14,46 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/black" />
+        android:scaleType="centerCrop"
+        tools:background="@android:color/darker_gray" />
 
     <TextView
         android:id="@+id/nombreEvento"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:lines="1"
         app:layout_constraintStart_toEndOf="@+id/imageEvento"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Nombre" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0" />
 
     <TextView
         android:id="@+id/descEvento"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/imageEvento"
         app:layout_constraintTop_toBottomOf="@id/nombreEvento"
-        tools:text="Descripcion" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/ubiEvento"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/imageEvento"
         app:layout_constraintTop_toBottomOf="@id/descEvento"
-        tools:text="Ubicacion" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

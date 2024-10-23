@@ -13,8 +13,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    private val predefinedEmail = "micuenta@gmail.com"
-    private val predefinedPassword = "clave123"
+    private val predefinedEmail = "1"
+    private val predefinedPassword = "1"
     private lateinit var password: EditText
     private lateinit var togglePasswordVisibility: Button
 
@@ -54,14 +54,12 @@ class MainActivity : AppCompatActivity() {
             val emailInput = usuarioInput.text.toString()
             val passwordInput = contraseñaInput.text.toString()
 
-            //if (emailInput == predefinedEmail && passwordInput == predefinedPassword) {
-                // Credenciales correctas, navega a la siguiente actividad
+            if (emailInput == predefinedEmail && passwordInput == predefinedPassword) {
                 val intent: Intent = Intent(this, pantalla_home::class.java)
                 startActivity(intent)
-            //} else {
-                // Credenciales incorrectas, muestra un mensaje al usuario
-             //   Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
-            //}
+            } else {
+                Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val btn_register : Button = findViewById(R.id.pantallaregistro)
