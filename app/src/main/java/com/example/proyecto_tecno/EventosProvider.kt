@@ -12,9 +12,6 @@ class EventosProvider {
             Evento("Evento 7", "Desc 7", "Ubi 7", "https://i.pinimg.com/474x/58/d7/7c/58d77cd0e7308f229c711243fd7965fe.jpg"),
             Evento("Evento 8", "Desc 8", "Ubi 8", "https://i.pinimg.com/enabled/474x/91/65/59/916559349a0666b9a3e5dde2b180dd38.jpg"),
             Evento("Evento 9", "Desc 9", "Ubi 9", "https://i.pinimg.com/474x/0c/87/4f/0c874ff7b318ee4ce2b0f30e1348b709.jpg"),
-            Evento("Fiesta en yate", "Con putas de barco", "Lago san roque", "https://i.pinimg.com/474x/07/fc/5d/07fc5d5b453d75a04019b782c4b10abb.jpg")
-
-
         )
     }
 }

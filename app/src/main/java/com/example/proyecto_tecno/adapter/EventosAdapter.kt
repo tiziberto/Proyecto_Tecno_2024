@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_tecno.Evento
 import com.example.proyecto_tecno.R
 
-class EventosAdapter(var EventosList:List<Evento>): RecyclerView.Adapter<EventosViewHolder>() {
+class EventosAdapter(
+    private var EventosList:List<Evento>
+
+): RecyclerView.Adapter<EventosViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventosViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return EventosViewHolder(layoutInflater.inflate(R.layout.item_evento, parent, false))
@@ -18,4 +22,10 @@ class EventosAdapter(var EventosList:List<Evento>): RecyclerView.Adapter<Eventos
         val item = EventosList[position]
         holder.render(item)
     }
+
+    fun updateEventos(nuevaEventosList: List<Evento>) {
+        this.EventosList = nuevaEventosList // Asegúrate de usar el nombre correcto de la variable
+        notifyDataSetChanged() // Notifica que los datos han cambiado
+    }
+
 }
