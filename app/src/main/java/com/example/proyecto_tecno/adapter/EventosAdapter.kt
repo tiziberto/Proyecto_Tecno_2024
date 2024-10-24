@@ -11,6 +11,8 @@ class EventosAdapter(
 
 ): RecyclerView.Adapter<EventosViewHolder>() {
 
+    var onItemClick : ((Evento)-> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventosViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return EventosViewHolder(layoutInflater.inflate(R.layout.item_evento, parent, false))
@@ -21,6 +23,10 @@ class EventosAdapter(
     override fun onBindViewHolder(holder: EventosViewHolder, position: Int) {
         val item = EventosList[position]
         holder.render(item)
+
+        holder.itemView.setOnClickListener{
+            onItemClick?.invoke(item)
+        }
     }
 
     fun updateEventos(nuevaEventosList: List<Evento>) {

@@ -1,5 +1,6 @@
 package com.example.proyecto_tecno
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -20,7 +21,13 @@ class pantalla_home : AppCompatActivity() {
         setContentView(binding.root)
         window.statusBarColor = ContextCompat.getColor(this, android.R.color.black)
         initRecyclerView()
-        setupSearch() // Método para configurar el buscador
+        setupSearch()
+
+        adapter.onItemClick = {
+            val intent = Intent(this, DetailedActivity::class.java)
+            intent.putExtra("evento", it)
+            startActivity(intent)
+        }
     }
 
     private fun initRecyclerView() {
@@ -32,12 +39,12 @@ class pantalla_home : AppCompatActivity() {
 
     private fun setupSearch() {
         binding.buscador.addTextChangedListener { userFilter ->
-            val filterText = userFilter.toString().trim() // Obtener texto filtrado y eliminar espacios
+            val filterText = userFilter.toString().trim()
             val eventosFiltered = if (filterText.isEmpty()) {
-                eventosList // Si el filtro está vacío, muestra toda la lista
+                eventosList
             } else {
                 eventosList.filter { evento ->
-                    evento.nombre.contains(filterText, ignoreCase = true) // Filtrado sin distinción de mayúsculas
+                    evento.nombre.contains(filterText, ignoreCase = true)
                 }
             }
             adapter.updateEventos(eventosFiltered)
@@ -45,6 +52,6 @@ class pantalla_home : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // No hacer nada
+
     }
 }

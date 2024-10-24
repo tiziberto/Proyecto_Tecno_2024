@@ -36,11 +36,11 @@ class MainActivity : AppCompatActivity() {
             if (password.transformationMethod is PasswordTransformationMethod) {
                 // Cambiar a texto normal
                 password.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                togglePasswordVisibility.text = "🙈" // Cambiar el texto del botón
+                togglePasswordVisibility.text = "🙈"
             } else {
                 // Cambiar a texto de contraseña
                 password.transformationMethod = PasswordTransformationMethod.getInstance()
-                togglePasswordVisibility.text = "🙉️" // Cambiar el texto del botón
+                togglePasswordVisibility.text = "🙉️"
             }
             // Mover el cursor al final
             password.setSelection(password.text.length)
