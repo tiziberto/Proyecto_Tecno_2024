@@ -8,23 +8,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class solicitud_codigo : AppCompatActivity() {
+class PantallaRecuperarPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_solicitud_codigo)
+        setContentView(R.layout.activity_pantalla_recuperar_password)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val btn_login : Button = findViewById(R.id.cambiar_password)
+        val btn_login : Button = findViewById(R.id.pantallalogin)
         btn_login.setOnClickListener{
-            val intent: Intent = Intent(this, MainActivity::class.java)
+            val intent: Intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            //Agregar notificacion con cambio de contraseña satisfactorio/erroneo
+        }
+
+        val solicitar_codigo : Button = findViewById(R.id.cambiar_password)
+        solicitar_codigo.setOnClickListener{
+            val intent: Intent = Intent(this, SolicitudCodigoActivity::class.java)
+            startActivity(intent)
         }
     }
-
 }

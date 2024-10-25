@@ -1,17 +1,13 @@
 package com.example.proyecto_tecno
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_tecno.adapter.EventosAdapter
 import com.example.proyecto_tecno.databinding.ActivityPantallaHomeBinding
 
-class pantalla_home : AppCompatActivity() {
+class PantallaHomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPantallaHomeBinding
     private var eventosList: MutableList<Evento> = EventosProvider.EventosList.toMutableList()
     private lateinit var adapter: EventosAdapter
@@ -21,12 +17,12 @@ class pantalla_home : AppCompatActivity() {
         binding = ActivityPantallaHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.statusBarColor = ContextCompat.getColor(this, android.R.color.black)
-        replaceFragment(Home())
+        replaceFragment(HomeFragment())
        binding.bottomNavigation.setOnItemSelectedListener {
            when(it.itemId){
-               R.id.home -> replaceFragment(Home())
-               R.id.profile -> replaceFragment(Profile())
-               R.id.favorites -> replaceFragment(Favorites())
+               R.id.home -> replaceFragment(HomeFragment())
+               R.id.profile -> replaceFragment(ProfileFragment())
+               R.id.favorites -> replaceFragment(FavoritesFragment())
 
                else ->{
                }

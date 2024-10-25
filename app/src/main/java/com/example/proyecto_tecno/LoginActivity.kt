@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private val predefinedEmail = "correo@gmail.com"
     private val predefinedPassword = "1234"
     private lateinit var password: EditText
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             val passwordInput = contraseñaInput.text.toString()
 
             if (emailInput == predefinedEmail && passwordInput == predefinedPassword) {
-                val intent: Intent = Intent(this, pantalla_home::class.java)
+                val intent: Intent = Intent(this, PantallaHomeActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
@@ -61,13 +61,13 @@ class MainActivity : AppCompatActivity() {
 
         val btn_register : Button = findViewById(R.id.pantallaregistro)
         btn_register.setOnClickListener{
-            val intent: Intent = Intent(this, pantalla_registro::class.java)
+            val intent: Intent = Intent(this, PantallaRegistroActivity::class.java)
             startActivity(intent)
         }
 
         val recuperarpassword : Button = findViewById(R.id.recuperarpassword)
         recuperarpassword.setOnClickListener{
-            val intent: Intent = Intent(this, pantalla_recuperar_password::class.java)
+            val intent: Intent = Intent(this, PantallaRecuperarPasswordActivity::class.java)
             startActivity(intent)
         }
     }

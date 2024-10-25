@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class pantalla_registro : AppCompatActivity() {
+class PantallaRegistroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,14 +21,14 @@ class pantalla_registro : AppCompatActivity() {
 
         val btn_registrarse : Button = findViewById(R.id.registrarse)
         btn_registrarse.setOnClickListener{
-            val intent: Intent = Intent(this, MainActivity::class.java)
+            val intent: Intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             //Agregar notificacion con registro satisfactorio/erroneo
         }
 
         val btn_login : Button = findViewById(R.id.pantallalogin)
         btn_login.setOnClickListener{
-            val intent: Intent = Intent(this, MainActivity::class.java)
+            val intent: Intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }

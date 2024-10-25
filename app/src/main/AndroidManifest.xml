@@ -21,17 +21,17 @@
             android:name=".DetailedActivity"
             android:exported="false" />
         <activity
-            android:name=".pantalla_home"
+            android:name=".PantallaHomeActivity"
             android:exported="false" />
         <activity
             android:name=".PantallaPrincipal"
             android:exported="false"
             android:label="@string/title_activity_pantalla_principal" />
         <activity
-            android:name=".solicitud_codigo"
+            android:name=".SolicitudCodigoActivity"
             android:exported="false" />
         <activity
-            android:name=".pantalla_recuperar_password"
+            android:name=".PantallaRecuperarPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".Principal"
@@ -41,13 +41,13 @@
             android:name=".MainActivity2"
             android:exported="false" />
         <activity
-            android:name=".pantalla_registro"
+            android:name=".PantallaRegistroActivity"
             android:exported="false" />
         <activity
             android:name=".pantalla_inicio"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
