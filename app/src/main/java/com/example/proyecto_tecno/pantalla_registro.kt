@@ -23,7 +23,7 @@ class pantalla_registro : AppCompatActivity() {
         btn_registrarse.setOnClickListener{
             val intent: Intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            //Notificacion con registro satisfactorio/erroneo
+            //Agregar notificacion con registro satisfactorio/erroneo
         }
 
         val btn_login : Button = findViewById(R.id.pantallalogin)

@@ -40,20 +40,32 @@
         android:layout_marginTop="8dp"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
+        android:lines="2"
         app:layout_constraintStart_toEndOf="@+id/imageEvento"
         app:layout_constraintTop_toBottomOf="@id/nombreEvento"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/ubiEvento"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="221dp"
+        android:layout_height="23dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
+        android:lines="1"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/imageEvento"
-        app:layout_constraintTop_toBottomOf="@id/descEvento"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/descEvento" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="108dp"
+        app:layout_constraintEnd_toStartOf="@+id/ubiEvento"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

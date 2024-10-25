@@ -23,7 +23,7 @@ class solicitud_codigo : AppCompatActivity() {
         btn_login.setOnClickListener{
             val intent: Intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            //Notificacion con cambio de contraseña satisfactorio/erroneo
+            //Agregar notificacion con cambio de contraseña satisfactorio/erroneo
         }
     }
 

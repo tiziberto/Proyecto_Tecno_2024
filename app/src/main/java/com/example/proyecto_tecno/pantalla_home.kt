@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_tecno.adapter.EventosAdapter
@@ -20,38 +21,29 @@ class pantalla_home : AppCompatActivity() {
         binding = ActivityPantallaHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.statusBarColor = ContextCompat.getColor(this, android.R.color.black)
-        initRecyclerView()
-        setupSearch()
+        replaceFragment(Home())
+       binding.bottomNavigation.setOnItemSelectedListener {
+           when(it.itemId){
+               R.id.home -> replaceFragment(Home())
+               R.id.profile -> replaceFragment(Profile())
+               R.id.favorites -> replaceFragment(Favorites())
 
-        adapter.onItemClick = {
-            val intent = Intent(this, DetailedActivity::class.java)
-            intent.putExtra("evento", it)
-            startActivity(intent)
-        }
-    }
+               else ->{
+               }
+           }
+           true
 
-    private fun initRecyclerView() {
-        val recyclerView = binding.recyclerEventos
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = EventosAdapter(eventosList)
-        recyclerView.adapter = adapter
-    }
-
-    private fun setupSearch() {
-        binding.buscador.addTextChangedListener { userFilter ->
-            val filterText = userFilter.toString().trim()
-            val eventosFiltered = if (filterText.isEmpty()) {
-                eventosList
-            } else {
-                eventosList.filter { evento ->
-                    evento.nombre.contains(filterText, ignoreCase = true)
-                }
-            }
-            adapter.updateEventos(eventosFiltered)
-        }
+       }
     }
 
     override fun onBackPressed() {
+    }
 
+    private fun replaceFragment(fragment : Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.commit()
     }
 }
+

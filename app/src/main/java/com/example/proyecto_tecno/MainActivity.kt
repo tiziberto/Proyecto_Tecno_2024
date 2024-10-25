@@ -13,8 +13,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    private val predefinedEmail = "1"
-    private val predefinedPassword = "1"
+    private val predefinedEmail = "correo@gmail.com"
+    private val predefinedPassword = "1234"
     private lateinit var password: EditText
     private lateinit var togglePasswordVisibility: Button
 
@@ -34,15 +34,12 @@ class MainActivity : AppCompatActivity() {
 
         togglePasswordVisibility.setOnClickListener {
             if (password.transformationMethod is PasswordTransformationMethod) {
-                // Cambiar a texto normal
                 password.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 togglePasswordVisibility.text = "🙈"
             } else {
-                // Cambiar a texto de contraseña
                 password.transformationMethod = PasswordTransformationMethod.getInstance()
                 togglePasswordVisibility.text = "🙉️"
             }
-            // Mover el cursor al final
             password.setSelection(password.text.length)
         }
 

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Proyecto_Tecno"
         tools:targetApi="31">
         <activity
+            android:name=".pantalla_configuracion"
+            android:exported="false" />
+        <activity
             android:name=".DetailedActivity"
             android:exported="false" />
         <activity

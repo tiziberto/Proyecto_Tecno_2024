@@ -30,8 +30,8 @@ class EventosAdapter(
     }
 
     fun updateEventos(nuevaEventosList: List<Evento>) {
-        this.EventosList = nuevaEventosList // Asegúrate de usar el nombre correcto de la variable
-        notifyDataSetChanged() // Notifica que los datos han cambiado
+        this.EventosList = nuevaEventosList
+        notifyDataSetChanged()
     }
 
 }
