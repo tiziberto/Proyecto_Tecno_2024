@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#090909"
+    tools:context=".ui.pantalla_configuracion">
+
+
+<EditText
+        android:id="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="pedro"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#818181"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/contraseña_nueva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="Clave123"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#818181"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usuario" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="34dp"
+        android:layout_height="43dp"
+        app:srcCompat="@android:drawable/ic_lock_idle_lock"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="482dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="33dp"
+        android:layout_height="46dp"
+        app:srcCompat="@android:drawable/sym_action_email"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="400dp" />
+
+    <EditText
+        android:id="@+id/usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="316dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="Usuario@gmail.com"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#818181"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageButton
+        android:id="@+id/editName"
+        android:layout_width="32dp"
+        android:layout_height="25dp"
+        android:backgroundTint="#00FFFFFF"
+        app:srcCompat="@android:drawable/ic_menu_edit"
+        tools:layout_editor_absoluteX="347dp"
+        tools:layout_editor_absoluteY="338dp" />
+
+    <ImageButton
+        android:id="@+id/edit_user"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:backgroundTint="#00FFFFFF"
+        app:srcCompat="@android:drawable/ic_menu_edit"
+        tools:layout_editor_absoluteX="347dp"
+        tools:layout_editor_absoluteY="410dp" />
+
+    <ImageButton
+        android:id="@+id/edit_password"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:background="#00141414"
+        app:srcCompat="@android:drawable/ic_menu_edit"
+        tools:layout_editor_absoluteX="349dp"
+        tools:layout_editor_absoluteY="493dp" />
+
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="176dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/alatsi"
+        android:text="Mi Perfil"
+        android:textAlignment="center"
+        android:textColor="#E60000"
+        android:textSize="48sp"
+        android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="69dp"
+        android:layout_height="61dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035"
+        app:srcCompat="@drawable/pin" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="49dp"
+        android:layout_height="43dp"
+        app:srcCompat="@drawable/pngtree_user_icon_image_1187018_removebg_preview"
+        tools:layout_editor_absoluteX="-6dp"
+        tools:layout_editor_absoluteY="329dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="221dp"
+        android:layout_height="230dp"
+        app:srcCompat="@drawable/imagen_profile_person"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="92dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
