@@ -3,17 +3,20 @@ package com.example.proyecto_tecno
 import android.os.Parcel
 import android.os.Parcelable
 
-class Evento(
+data class Evento(
     val nombre:String,
     val descripcion:String,
     val ubicacion: String,
-    val foto: String
-) : Parcelable {
+    val foto: String,
+    val id: Int
+)
+    : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readString()!!
+        parcel.readString()!!,
+        parcel.readInt()!!
     ) {
     }
 

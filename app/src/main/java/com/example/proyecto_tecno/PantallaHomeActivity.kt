@@ -4,13 +4,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.proyecto_tecno.adapter.EventosAdapter
 import com.example.proyecto_tecno.databinding.ActivityPantallaHomeBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class PantallaHomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPantallaHomeBinding
-    private var eventosList: MutableList<Evento> = EventosProvider.EventosList.toMutableList()
-    private lateinit var adapter: EventosAdapter
+    //private var eventosList: MutableList<Evento> = EventosProvider.EventosList.toMutableList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +35,9 @@ class PantallaHomeActivity : AppCompatActivity() {
            true
 
        }
+
     }
+
 
     override fun onBackPressed() {
     }
