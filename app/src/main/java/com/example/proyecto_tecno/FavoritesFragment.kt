@@ -14,6 +14,7 @@ class FavoritesFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -25,6 +26,7 @@ class FavoritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         return inflater.inflate(R.layout.fragment_favorites, container, false)
     }

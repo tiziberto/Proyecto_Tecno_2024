@@ -46,8 +46,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 // Filtra los eventos por nombre, descripción o ubicación
                 eventosList.filter { evento ->
                     normalizeString(evento.nombre).contains(filterText, ignoreCase = true) ||
-                            normalizeString(evento.descripcion).contains(filterText, ignoreCase = true) ||
-                            normalizeString(evento.ubicacion).contains(filterText, ignoreCase = true)
+                    normalizeString(evento.descripcion).contains(filterText, ignoreCase = true) ||
+                    normalizeString(evento.ubicacion).contains(filterText, ignoreCase = true)
                 }
             }
             adapter.updateEventos(eventosFiltered) // Actualiza la lista del adaptador

@@ -7,23 +7,24 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "EventoEntity")
 data class Evento(
-    val nombre:String,
-    val descripcion:String,
+    @PrimaryKey val id: Long = 0,
+    val nombre: String,
+    val descripcion: String,
     val ubicacion: String,
-    val foto: String,
-    @PrimaryKey val id: Int
+    val foto: String
 )
     : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readLong()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readString()!!,
-        parcel.readInt()!!
+        parcel.readString()!!
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
         parcel.writeString(nombre)
         parcel.writeString(descripcion)
         parcel.writeString(ubicacion)
