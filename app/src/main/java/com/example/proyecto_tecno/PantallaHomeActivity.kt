@@ -48,5 +48,12 @@ class PantallaHomeActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frame_layout,fragment)
         fragmentTransaction.commit()
     }
+
+
+    private fun addToFavourites(evento : Evento ){
+        lifecycleScope.launch(Dispatchers.IO) {
+            val result = FinditApplication.dataBase.EventoDao().addEvento(evento)
+        }
+    }
 }
 

@@ -2,13 +2,16 @@ package com.example.proyecto_tecno
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "EventoEntity")
 data class Evento(
     val nombre:String,
     val descripcion:String,
     val ubicacion: String,
     val foto: String,
-    val id: Int
+    @PrimaryKey val id: Int
 )
     : Parcelable {
     constructor(parcel: Parcel) : this(
