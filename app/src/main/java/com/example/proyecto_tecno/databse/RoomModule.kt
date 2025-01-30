@@ -1,11 +1,11 @@
 import android.app.Application
 import androidx.room.Room
-import com.example.proyecto_tecno.EventoDataBase
+import com.example.proyecto_tecno.databse.FindItDataBase
 
 class FinditApplication : Application() {
 
     companion object {
-        lateinit var dataBase: EventoDataBase
+        lateinit var dataBase: FindItDataBase
     }
 
     override fun onCreate() {
@@ -14,7 +14,7 @@ class FinditApplication : Application() {
         // Asegúrate de inicializar la base de datos correctamente
         dataBase = Room.databaseBuilder(
             applicationContext,  // Usar applicationContext
-            EventoDataBase::class.java, "FindItDatabase"
+            FindItDataBase::class.java, "FindItDatabase"
         ).build()
     }
 }

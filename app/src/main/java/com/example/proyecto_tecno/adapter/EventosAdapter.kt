@@ -3,15 +3,15 @@ package com.example.proyecto_tecno.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto_tecno.Evento
+import com.example.proyecto_tecno.databse.EventoEntity
 import com.example.proyecto_tecno.R
 
 class EventosAdapter(
-    private var EventosList:List<Evento>
+    private var EventosList:List<EventoEntity>
 
 ): RecyclerView.Adapter<EventosViewHolder>() {
 
-    var onItemClick : ((Evento)-> Unit)? = null
+    var onItemClick : ((EventoEntity)-> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventosViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -29,7 +29,7 @@ class EventosAdapter(
         }
     }
 
-    fun updateEventos(nuevaEventosList: List<Evento>) {
+    fun updateEventos(nuevaEventosList: List<EventoEntity>) {
         this.EventosList = nuevaEventosList
         notifyDataSetChanged()
     }

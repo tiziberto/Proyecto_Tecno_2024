@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.proyecto_tecno.databse.EventoEntity
+import com.example.proyecto_tecno.databse.FinditApplication
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,7 +24,7 @@ class DetailedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detailed)
         enableEdgeToEdge()
 
-        val evento = intent.getParcelableExtra<Evento>("evento")
+        val evento = intent.getParcelableExtra<EventoEntity>("evento")
 
         if (evento != null) {
             val nombre: TextView = findViewById(R.id.detailed_nombre)
@@ -64,7 +66,7 @@ class DetailedActivity : AppCompatActivity() {
         }
     }
 
-    private fun eliminarDeFavoritos(evento: Evento) {
+    private fun eliminarDeFavoritos(evento: EventoEntity) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 FinditApplication.dataBase.EventoDao().deleteEvento(evento)
@@ -84,7 +86,7 @@ class DetailedActivity : AppCompatActivity() {
     }
 
 
-    private fun addToFavourites(evento: Evento) {
+    private fun addToFavourites(evento: EventoEntity) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val result = FinditApplication.dataBase.EventoDao().addEvento(evento)
@@ -105,7 +107,7 @@ class DetailedActivity : AppCompatActivity() {
         }
     }
 
-    private fun verificarEventoEnBaseDeDatos(evento: Evento) {
+    private fun verificarEventoEnBaseDeDatos(evento: EventoEntity) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 // Buscar el evento en la base de datos por su ID

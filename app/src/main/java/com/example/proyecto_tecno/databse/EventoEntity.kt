@@ -1,4 +1,4 @@
-package com.example.proyecto_tecno
+package com.example.proyecto_tecno.databse
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "EventoEntity")
-data class Evento(
+data class EventoEntity(
     @PrimaryKey val id: Long = 0,
     val nombre: String,
     val descripcion: String,
@@ -35,12 +35,12 @@ data class Evento(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Evento> {
-        override fun createFromParcel(parcel: Parcel): Evento {
-            return Evento(parcel)
+    companion object CREATOR : Parcelable.Creator<EventoEntity> {
+        override fun createFromParcel(parcel: Parcel): EventoEntity {
+            return EventoEntity(parcel)
         }
 
-        override fun newArray(size: Int): Array<Evento?> {
+        override fun newArray(size: Int): Array<EventoEntity?> {
             return arrayOfNulls(size)
         }
     }

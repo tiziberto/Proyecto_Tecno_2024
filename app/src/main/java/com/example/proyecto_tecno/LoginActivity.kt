@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.Context
+import com.example.proyecto_tecno.ui.PantallaRegistroActivity
 
 class LoginActivity : AppCompatActivity() {
     private val predefinedEmail = "correo@gmail.com"

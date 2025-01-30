@@ -13,6 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_tecno.adapter.EventosAdapter
+import com.example.proyecto_tecno.databse.EventoEntity
+import com.example.proyecto_tecno.databse.EventoService
+import com.example.proyecto_tecno.databse.FinditApplication
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,9 +28,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var adapter: EventosAdapter
     private lateinit var service: EventoService
-    private var eventosList: MutableList<Evento> = mutableListOf() // Lista completa de eventos
+    private var eventosList: MutableList<EventoEntity> = mutableListOf() // Lista completa de eventos
     private var isFiltroActivo: Boolean = false // Estado del filtro
-    private var eventosFiltrados: MutableList<Evento> = mutableListOf() // Lista filtrada de eventos
+    private var eventosFiltrados: MutableList<EventoEntity> = mutableListOf() // Lista filtrada de eventos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Inicializa Retrofit y el servicio de API
