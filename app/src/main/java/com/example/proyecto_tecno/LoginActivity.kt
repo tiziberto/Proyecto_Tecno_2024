@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.content.Context
 
 class LoginActivity : AppCompatActivity() {
     private val predefinedEmail = "correo@gmail.com"
@@ -19,7 +20,14 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var togglePasswordVisibility: Button
 
 
+
+    fun clearDatabase(context: Context) {
+        val dbName = ".FindItDatabase"
+        context.deleteDatabase(dbName)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        clearDatabase(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)

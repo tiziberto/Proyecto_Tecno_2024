@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import androidx.compose.material3.Button
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +17,7 @@ import com.example.proyecto_tecno.adapter.EventosAdapter
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.Normalizer
@@ -22,8 +26,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var adapter: EventosAdapter
     private lateinit var service: EventoService
-    private var eventosList: MutableList<Evento> = mutableListOf() // Lista para almacenar los eventos
-
+    private var eventosList: MutableList<Evento> = mutableListOf() // Lista completa de eventos
+    private var isFiltroActivo: Boolean = false // Estado del filtro
+    private var eventosFiltrados: MutableList<Evento> = mutableListOf() // Lista filtrada de eventos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -46,8 +51,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 // Filtra los eventos por nombre, descripción o ubicación
                 eventosList.filter { evento ->
                     normalizeString(evento.nombre).contains(filterText, ignoreCase = true) ||
-                    normalizeString(evento.descripcion).contains(filterText, ignoreCase = true) ||
-                    normalizeString(evento.ubicacion).contains(filterText, ignoreCase = true)
+                            normalizeString(evento.descripcion).contains(filterText, ignoreCase = true) ||
+                            normalizeString(evento.ubicacion).contains(filterText, ignoreCase = true)
                 }
             }
             adapter.updateEventos(eventosFiltered) // Actualiza la lista del adaptador
@@ -60,8 +65,48 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             startActivity(intent)
         }
 
+        // Configura el botón de filtrar favoritos
+        val btnFiltrarFavoritos: Button = view.findViewById(R.id.btnFiltrarFavoritos)
+        btnFiltrarFavoritos.setOnClickListener {
+            isFiltroActivo = !isFiltroActivo // Alternar el estado del filtro
+            if (isFiltroActivo) {
+                filtrarFavoritos() // Mostrar solo los eventos en la base de datos
+                btnFiltrarFavoritos.text = "Mostrar todos" // Cambiar el texto del botón
+            } else {
+                mostrarListaCompleta() // Mostrar todos los eventos
+                btnFiltrarFavoritos.text = "Mostrar favoritos" // Cambiar el texto del botón
+            }
+        }
+
         // Carga los eventos desde la API
         getEventos()
+    }
+
+    private fun mostrarListaCompleta() {
+        adapter.updateEventos(eventosList) // Actualiza el RecyclerView con la lista completa
+    }
+
+    // Filtra los eventos para mostrar solo los que están en la base de datos
+    private fun filtrarFavoritos() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // Obtener los IDs de los eventos en la base de datos
+                val idsFavoritos = FinditApplication.dataBase.EventoDao().getAllIds()
+
+                // Filtrar la lista de eventos para incluir solo los que están en la base de datos
+                eventosFiltrados.clear()
+                eventosFiltrados.addAll(eventosList.filter { it.id in idsFavoritos })
+
+                // Actualizar el RecyclerView en el hilo principal
+                withContext(Dispatchers.Main) {
+                    adapter.updateEventos(eventosFiltrados)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    showMsg("Error al filtrar eventos: ${e.message}")
+                }
+            }
+        }
     }
 
     // Configura Retrofit y el servicio de API
@@ -95,11 +140,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-
     // Normaliza una cadena eliminando acentos y convirtiéndola a minúsculas
     private fun normalizeString(input: String): String {
         val lowerCased = input.lowercase()
         return Normalizer.normalize(lowerCased, Normalizer.Form.NFD)
             .replace(Regex("\\p{M}"), "")
+    }
+
+    // Muestra un mensaje en la UI
+    private fun showMsg(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

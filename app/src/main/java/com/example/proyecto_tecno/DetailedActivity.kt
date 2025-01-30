@@ -26,7 +26,7 @@ class DetailedActivity : AppCompatActivity() {
         val evento = intent.getParcelableExtra<Evento>("evento")
 
         if (evento != null) {
-            val nombre: TextView = findViewById(    R.id.detailed_nombre)
+            val nombre: TextView = findViewById(R.id.detailed_nombre)
             val descripcion: TextView = findViewById(R.id.detailed_descripcion)
             val ubicacion: TextView = findViewById(R.id.detailed_ubicacion)
             val imagen: ImageView = findViewById(R.id.detailed_imagen)
@@ -38,6 +38,9 @@ class DetailedActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(evento.foto)
                 .into(imagen)
+
+            // Verificar si el evento está en la base de datos al iniciar la actividad
+            verificarEventoEnBaseDeDatos(evento)
         } else {
             finish()
         }
@@ -48,6 +51,9 @@ class DetailedActivity : AppCompatActivity() {
             if (isIconClicked) {
                 myButton.setImageResource(R.drawable.baseline_star_border_24)
                 showMsg("Eliminado de favoritos")
+                if (evento != null) {
+                    eliminarDeFavoritos(evento)
+                }
             } else {
                 showMsg("Añadido a favoritos")
                 if (evento != null) {
@@ -58,9 +64,26 @@ class DetailedActivity : AppCompatActivity() {
             isIconClicked = !isIconClicked
         }
     }
+
+    private fun eliminarDeFavoritos(evento: Evento) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                FinditApplication.dataBase.EventoDao().deleteEvento(evento)
+                withContext(Dispatchers.Main) {
+                    showMsg("Evento eliminado de favoritos")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    showMsg("Error al eliminar el evento: ${e.message}")
+                }
+            }
+        }
+    }
+
     private fun showMsg(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
+
 
     private fun addToFavourites(evento: Evento) {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -83,4 +106,30 @@ class DetailedActivity : AppCompatActivity() {
         }
     }
 
+    private fun verificarEventoEnBaseDeDatos(evento: Evento) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // Buscar el evento en la base de datos por su ID
+                val eventoEnDB = FinditApplication.dataBase.EventoDao().getEventoById(evento.id)
+
+                // Actualizar la UI en el hilo principal
+                withContext(Dispatchers.Main) {
+                    if (eventoEnDB != null) {
+                        // Si el evento está en la base de datos, cambiar la imagen del botón
+                        myButton.setImageResource(R.drawable.baseline_star_24)
+                        isIconClicked = true // Actualizar el estado del botón
+                    } else {
+                        // Si el evento no está en la base de datos, usar la imagen de estrella vacía
+                        myButton.setImageResource(R.drawable.baseline_star_border_24)
+                        isIconClicked = false // Actualizar el estado del botón
+                    }
+                }
+            } catch (e: Exception) {
+                // Manejar errores
+                e.printStackTrace()
+            }
+        }
+    }
 }
+
+
