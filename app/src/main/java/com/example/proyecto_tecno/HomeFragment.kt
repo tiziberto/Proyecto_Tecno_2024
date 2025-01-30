@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.compose.material3.Button
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +30,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var eventosFiltrados: MutableList<Evento> = mutableListOf() // Lista filtrada de eventos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Inicializa Retrofit y el servicio de API
         setupRetrofit()
 
@@ -56,6 +54,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
             adapter.updateEventos(eventosFiltered) // Actualiza la lista del adaptador
+
         }
 
         // Configura el evento de clic en el adaptador

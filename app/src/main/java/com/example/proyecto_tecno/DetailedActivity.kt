@@ -9,7 +9,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -91,11 +90,11 @@ class DetailedActivity : AppCompatActivity() {
                 val result = FinditApplication.dataBase.EventoDao().addEvento(evento)
                 if (result > 0) {
                     withContext(Dispatchers.Main) {
-                        showMsg("Evento añadido a favoritos con ID: $result")
+                        //showMsg("Evento añadido a favoritos con ID: $result")
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        showMsg("Error al añadir el evento a favoritos")
+                        //showMsg("Error al añadir el evento a favoritos")
                     }
                 }
             } catch (e: Exception) {
