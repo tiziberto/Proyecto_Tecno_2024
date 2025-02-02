@@ -31,6 +31,10 @@
     <string name="show_favorites">Mostrar favoritos</string>
     <string name="show_all">Mostrar todos</string>
 
+    <string name="add_favorites">Añadido a favoritos</string>
+    <string name="delete_favorites">Eliminado de favoritos</string>
 
 
+    <string name="succes_login">Ingreso exitoso 🎉</string>
+    <string name="failed_login">Mail o contraseña incorrectos ❌</string>
 </resources>

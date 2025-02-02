@@ -2,40 +2,58 @@ package com.example.proyecto_tecno
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import android.content.Context
+import androidx.lifecycle.lifecycleScope
+import com.example.proyecto_tecno.database.UsuarioRepository
+import com.example.proyecto_tecno.databse.FindItDataBase
 import com.example.proyecto_tecno.ui.PantallaRegistroActivity
+import com.example.proyecto_tecno.viewmodels.UsuarioViewModel
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-    private val predefinedEmail = "correo@gmail.com"
-    private val predefinedPassword = "1234"
     private lateinit var password: EditText
     private lateinit var togglePasswordVisibility: Button
-
-
-
-    fun clearDatabase(context: Context) {
-        val dbName = ".FindItDatabase"
-        context.deleteDatabase(dbName)
-    }
+    private lateinit var usuarioViewModel: UsuarioViewModel
+    private lateinit var editTextUsuario: EditText
+    private lateinit var editTextPassword: EditText
+    private lateinit var btnIniciarSesion: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        clearDatabase(this)
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val database = FindItDataBase.getDatabase(this)
+        val repository = UsuarioRepository(database.UsuarioDao())
+        usuarioViewModel = UsuarioViewModel(repository)
+
+        editTextUsuario = findViewById(R.id.usuario)
+        editTextPassword = findViewById(R.id.password)
+        btnIniciarSesion = findViewById(R.id.cambiar_password)
+
+        btnIniciarSesion.setOnClickListener {
+            val email = editTextUsuario.text.toString().trim()
+            val password = editTextPassword.text.toString().trim()
+
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                iniciarSesion(email, password)
+            } else {
+                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val btn_register : Button = findViewById(R.id.pantallaregistro)
+        btn_register.setOnClickListener{
+            val intent: Intent = Intent(this, PantallaRegistroActivity::class.java)
+            startActivity(intent)
+        }
+
+        val recuperarpassword : Button = findViewById(R.id.recuperarpassword)
+        recuperarpassword.setOnClickListener{
+            val intent: Intent = Intent(this, PantallaRecuperarPasswordActivity::class.java)
+            startActivity(intent)
         }
 
         password = findViewById(R.id.password)
@@ -52,32 +70,23 @@ class LoginActivity : AppCompatActivity() {
             password.setSelection(password.text.length)
         }
 
-        val usuarioInput: EditText = findViewById(R.id.usuario)
-        val contraseñaInput: EditText = findViewById(R.id.password)
 
-        val btn_login : Button = findViewById(R.id.cambiar_password)
-        btn_login.setOnClickListener{
-            val emailInput = usuarioInput.text.toString()
-            val passwordInput = contraseñaInput.text.toString()
+    }
 
-            if (emailInput == predefinedEmail && passwordInput == predefinedPassword) {
-                val intent: Intent = Intent(this, PantallaHomeActivity::class.java)
+
+
+
+    private fun iniciarSesion(email: String, password: String) {
+        lifecycleScope.launch {
+            val usuario = usuarioViewModel.getUsuarioByEmailAndPassword(email, password)
+            if (usuario != null) {
+                Toast.makeText(this@LoginActivity, getString(R.string.succes_login), Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@LoginActivity, PantallaHomeActivity::class.java)
                 startActivity(intent)
+                finish()
             } else {
-                Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, getString(R.string.failed_login), Toast.LENGTH_SHORT).show()
             }
-        }
-
-        val btn_register : Button = findViewById(R.id.pantallaregistro)
-        btn_register.setOnClickListener{
-            val intent: Intent = Intent(this, PantallaRegistroActivity::class.java)
-            startActivity(intent)
-        }
-
-        val recuperarpassword : Button = findViewById(R.id.recuperarpassword)
-        recuperarpassword.setOnClickListener{
-            val intent: Intent = Intent(this, PantallaRecuperarPasswordActivity::class.java)
-            startActivity(intent)
         }
     }
 }

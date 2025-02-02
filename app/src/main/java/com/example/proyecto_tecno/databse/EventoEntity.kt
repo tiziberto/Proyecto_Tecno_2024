@@ -11,11 +11,13 @@ data class EventoEntity(
     val nombre: String,
     val descripcion: String,
     val ubicacion: String,
-    val foto: String
+    val foto: String,
+    val fecha : String
 )
     : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readLong()!!,
+        parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
@@ -29,6 +31,7 @@ data class EventoEntity(
         parcel.writeString(descripcion)
         parcel.writeString(ubicacion)
         parcel.writeString(foto)
+        parcel.writeString(fecha)
     }
 
     override fun describeContents(): Int {

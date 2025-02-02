@@ -14,6 +14,8 @@ import com.example.proyecto_tecno.databse.FinditApplication
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class DetailedActivity : AppCompatActivity() {
     private lateinit var myButton: ImageButton
@@ -31,10 +33,12 @@ class DetailedActivity : AppCompatActivity() {
             val descripcion: TextView = findViewById(R.id.detailed_descripcion)
             val ubicacion: TextView = findViewById(R.id.detailed_ubicacion)
             val imagen: ImageView = findViewById(R.id.detailed_imagen)
+            val fecha: TextView = findViewById(R.id.fecha_dato)
 
             nombre.text = evento.nombre
             descripcion.text = evento.descripcion
             ubicacion.text = evento.ubicacion
+            fecha.text = formatDate(evento.fecha)
 
             Glide.with(this)
                 .load(evento.foto)
@@ -51,12 +55,12 @@ class DetailedActivity : AppCompatActivity() {
         myButton.setOnClickListener {
             if (isIconClicked) {
                 myButton.setImageResource(R.drawable.baseline_star_border_24)
-                showMsg("Eliminado de favoritos")
+                showMsg(getString(R.string.delete_favorites))
                 if (evento != null) {
                     eliminarDeFavoritos(evento)
                 }
             } else {
-                showMsg("Añadido a favoritos")
+                showMsg(getString(R.string.add_favorites))
                 if (evento != null) {
                     addToFavourites(evento)
                 }
@@ -66,12 +70,31 @@ class DetailedActivity : AppCompatActivity() {
         }
     }
 
+    // Método para formatear la fecha
+    private fun formatDate(fecha: String): String {
+        return try {
+            // Suponiendo que la fecha está en formato ISO 8601 (como "2025-02-10T10:00:00-03:00")
+            val formatEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault())
+            val parsedDate = formatEntrada.parse(fecha)
+
+            // Formatear la fecha en el formato "DD/MM/YYYY HH:mm"
+            val formatSalida = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+            parsedDate?.let {
+                formatSalida.format(it)
+            } ?: ""
+        } catch (e: Exception) {
+            // Si hay algún error al parsear la fecha, devolver una cadena vacía o manejar el error
+            ""
+        }
+    }
+
+
     private fun eliminarDeFavoritos(evento: EventoEntity) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 FinditApplication.dataBase.EventoDao().deleteEvento(evento)
                 withContext(Dispatchers.Main) {
-                    showMsg("Evento eliminado de favoritos")
+                    //showMsg("Evento eliminado de favoritos")
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {

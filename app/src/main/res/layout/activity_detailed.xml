@@ -26,11 +26,12 @@
         android:id="@+id/imageView7"
         android:layout_width="42dp"
         android:layout_height="41dp"
-        android:layout_marginEnd="-100dp"
+        android:layout_marginEnd="-80dp"
         android:layout_marginBottom="-30dp"
         app:layout_constraintBottom_toTopOf="@+id/detailed_ubicacion"
         app:layout_constraintEnd_toStartOf="@+id/detailed_ubicacion"
         app:srcCompat="@drawable/pin" />
+
 
     <TextView
         android:id="@+id/detailed_ubicacion"
@@ -45,11 +46,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailed_descripcion"
-        app:layout_constraintVertical_bias="0.578"
+        app:layout_constraintVertical_bias="0.363"
         tools:ignore="MissingConstraints"
         tools:text="Ubi" />
-
-
 
     <TextView
         android:id="@+id/detailed_nombre"
@@ -70,7 +69,7 @@
         android:id="@+id/detailed_descripcion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -92,5 +91,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/baseline_star_border_24" />
+
+    <TextView
+        android:id="@+id/fecha_dato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="Fecha"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailed_ubicacion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

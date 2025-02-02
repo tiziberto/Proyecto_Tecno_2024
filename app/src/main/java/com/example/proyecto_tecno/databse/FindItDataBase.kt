@@ -18,7 +18,7 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
     }
 }
 
-@Database(entities = [EventoEntity::class, UsuarioEntity::class], version = 2)
+@Database(entities = [EventoEntity::class, UsuarioEntity::class], version = 3)
 abstract class FindItDataBase : RoomDatabase() {
     abstract fun EventoDao(): EventoDao
     abstract fun UsuarioDao(): UsuarioDao
@@ -32,7 +32,7 @@ abstract class FindItDataBase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     FindItDataBase::class.java,
-                    "find_it_database"
+                    "FindItDatabase"
                 )
                     .addMigrations(MIGRATION_1_2)  // Añadir migración aquí
                     .build()
