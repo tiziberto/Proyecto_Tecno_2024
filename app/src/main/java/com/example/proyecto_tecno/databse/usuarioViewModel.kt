@@ -1,16 +1,19 @@
-//package com.example.proyecto_tecno.viewmodels
-//
-//import android.app.Application
-//import androidx.lifecycle.AndroidViewModel
-//import com.example.proyecto_tecno.database.AppDatabase
-//import com.example.proyecto_tecno.models.UsuarioEntity
-//
-//class UsuarioViewModel(application: Application) : AndroidViewModel(application) {
-//
-//    private val usuarioDao = AppDatabase.getDatabase(application).usuarioDao()
-//
-//    // Buscar usuario por email y contraseña
-//    suspend fun getUsuarioByEmailAndPassword(email: String, password: String): UsuarioEntity? {
-//        return usuarioDao.getUsuarioByEmailAndPassword(email, password)
-//    }
-//}
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.proyecto_tecno.database.UsuarioDao
+import com.example.proyecto_tecno.models.UsuarioEntity
+import kotlinx.coroutines.launch
+
+class UsuarioViewModel(private val repository: UsuarioDao) : ViewModel() {
+
+    fun getUsuarioByEmail(email: String): LiveData<UsuarioEntity?> {
+        val usuarioLiveData = MutableLiveData<UsuarioEntity?>()
+        viewModelScope.launch {
+            val usuario = repository.getUsuarioByEmail(email)
+            usuarioLiveData.postValue(usuario)
+        }
+        return usuarioLiveData
+    }
+}

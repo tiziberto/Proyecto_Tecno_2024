@@ -2,6 +2,7 @@ package com.example.proyecto_tecno.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.proyecto_tecno.database.UsuarioDao
 import com.example.proyecto_tecno.database.UsuarioRepository
 import com.example.proyecto_tecno.models.UsuarioEntity
 import kotlinx.coroutines.launch

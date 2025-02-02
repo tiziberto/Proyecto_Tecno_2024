@@ -1,10 +1,12 @@
 package com.example.proyecto_tecno
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.*
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.proyecto_tecno.database.UsuarioRepository
@@ -24,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        enableEdgeToEdge()
         val database = FindItDataBase.getDatabase(this)
         val repository = UsuarioRepository(database.UsuarioDao())
         usuarioViewModel = UsuarioViewModel(repository)
@@ -80,6 +82,13 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val usuario = usuarioViewModel.getUsuarioByEmailAndPassword(email, password)
             if (usuario != null) {
+                val sharedPref = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+                with(sharedPref.edit()) {
+                    putString("email", usuario.mail)
+                    putString("nombre", usuario.nombre)
+                    putString("contraseña", usuario.clave)  // Solo si es necesario
+                    apply()
+                }
                 Toast.makeText(this@LoginActivity, getString(R.string.succes_login), Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@LoginActivity, PantallaHomeActivity::class.java)
                 startActivity(intent)
