@@ -13,10 +13,6 @@
         android:background="#000000"
         tools:context=".HomeFragment">
 
-        <!-- RecyclerView al fondo -->
-
-        <!-- Buscador arriba -->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerEventos"
             android:layout_width="match_parent"
@@ -33,14 +29,13 @@
             android:layout_width="match_parent"
             android:layout_height="82dp"
             android:backgroundTint="@color/red"
-            android:hint="Buscar eventos..."
+            android:hint="@string/search"
             android:inputType="text"
             android:padding="12dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#B0BEC5"
             android:elevation="10dp" />
 
-        <!-- Botón de favoritos encima del RecyclerView -->
         <Button
             android:id="@+id/btnFiltrarFavoritos"
             android:layout_width="wrap_content"
@@ -49,7 +44,7 @@
             android:layout_marginBottom="100dp"
             android:backgroundTint="#E50000"
             android:elevation="10dp"
-            android:text="Mostrar favoritos"
+            android:text="@string/show_favorites"
             android:textColor="#FFFFFF" />
 
     </FrameLayout>

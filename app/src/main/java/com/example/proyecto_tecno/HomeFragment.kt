@@ -73,10 +73,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             isFiltroActivo = !isFiltroActivo // Alternar el estado del filtro
             if (isFiltroActivo) {
                 filtrarFavoritos() // Mostrar solo los eventos en la base de datos
-                btnFiltrarFavoritos.text = "Mostrar todos" // Cambiar el texto del botón
+                btnFiltrarFavoritos.text = getString(R.string.show_all) // Cambiar el texto del botón
             } else {
                 mostrarListaCompleta() // Mostrar todos los eventos
-                btnFiltrarFavoritos.text = "Mostrar favoritos" // Cambiar el texto del botón
+                btnFiltrarFavoritos.text = getString(R.string.show_favorites) // Cambiar el texto del botón
             }
         }
 
