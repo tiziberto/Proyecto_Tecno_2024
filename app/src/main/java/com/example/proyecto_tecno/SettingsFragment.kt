@@ -80,9 +80,9 @@ class SettingsFragment : Fragment() {
 
     private fun enviarCorreoDesarrollador() {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:developer@example.com") // mail del desarrollador
             putExtra(Intent.EXTRA_SUBJECT, "Consulta sobre la aplicación") // asunto
             putExtra(Intent.EXTRA_TEXT, "Escribe tu mensaje aquí...") // msg
+            data = Uri.parse("mailto:developer@example.com") // mail del desarrollador
         }
         startActivity(Intent.createChooser(intent, "Enviar correo"))
     }

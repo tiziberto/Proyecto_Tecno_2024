@@ -1,5 +1,7 @@
 package com.example.proyecto_tecno
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -19,6 +21,7 @@ import java.util.Locale
 
 class DetailedActivity : AppCompatActivity() {
     private lateinit var myButton: ImageButton
+    private lateinit var shareButton: ImageButton
     private var isIconClicked: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +49,13 @@ class DetailedActivity : AppCompatActivity() {
 
             // Verificar si el evento está en la base de datos al iniciar la actividad
             verificarEventoEnBaseDeDatos(evento)
+
+            shareButton = findViewById(R.id.btnCompartir)
+
+            shareButton.setOnClickListener {
+                compartirEvento(evento)
+            }
+
         } else {
             finish()
         }
@@ -128,6 +138,23 @@ class DetailedActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun compartirEvento(evento: EventoEntity) {
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_SUBJECT, "Evento en FindIt")
+            putExtra(Intent.EXTRA_TEXT, "¡Mira este evento! \n\n${evento.nombre}\n${evento.descripcion}\n" +
+                    "Fecha: ${evento.fecha}")
+            type = "text/plain"
+            val imageUri = Uri.parse(evento.foto)
+            putExtra(Intent.EXTRA_STREAM, imageUri)
+            type = "image/*"
+        }
+
+        // Abrir un "chooser" para que el usuario elija la aplicación para compartir
+        val shareIntent = Intent.createChooser(intent, "Compartir evento con...")
+        startActivity(shareIntent)
     }
 
     private fun verificarEventoEnBaseDeDatos(evento: EventoEntity) {
