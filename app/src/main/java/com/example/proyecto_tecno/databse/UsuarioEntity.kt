@@ -8,5 +8,5 @@ data class UsuarioEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     var nombre: String,
     var mail: String,
-    val clave: String
+    var clave: String
 )

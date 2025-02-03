@@ -22,10 +22,4 @@ interface EventoDao {
     @Delete
     fun deleteEvento(evento: EventoEntity)
 
-    @Dao
-    interface EventoDao {
-        @Query("DELETE FROM EventoEntity")
-        fun deleteAllEventos()
-    }
-
 }

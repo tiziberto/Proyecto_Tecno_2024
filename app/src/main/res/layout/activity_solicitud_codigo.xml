@@ -6,39 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".LoginActivity">
-
-    <EditText
-        android:id="@+id/contraseña_nueva"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="1dp"
-        android:ems="10"
-        android:hint="@string/new_password"
-        android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#818181"
-        app:layout_constraintBottom_toTopOf="@+id/repetircontraseñanueva"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codigo" />
-
-    <Button
-        android:id="@+id/cambiar_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="#E50000"
-        android:text="@string/change_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repetircontraseñanueva" />
+    tools:context=".SolicitudCodigoActivity">
 
     <TextView
         android:id="@+id/nombre"
@@ -55,6 +23,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/email_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:text="Email: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombre"/>
+
     <EditText
         android:id="@+id/codigo"
         android:layout_width="match_parent"
@@ -62,16 +42,28 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
         android:hint="@string/code"
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="#818181"
-        app:layout_constraintBottom_toTopOf="@+id/contraseña_nueva"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombre" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_text"/>
+
+    <EditText
+        android:id="@+id/contraseña_nueva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/new_password"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#818181"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codigo"/>
 
     <EditText
         android:id="@+id/repetircontraseñanueva"
@@ -80,14 +72,26 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="7dp"
-        android:ems="10"
         android:hint="@string/repeat_password"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textColorHint="#818181"
-        app:layout_constraintBottom_toTopOf="@+id/cambiar_password"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contraseña_nueva" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contraseña_nueva"/>
+
+    <Button
+        android:id="@+id/cambiar_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#E50000"
+        android:text="@string/change_password"
+        android:enabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repetircontraseñanueva"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

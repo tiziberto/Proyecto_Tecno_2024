@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:padding="24dp"
+    tools:context=".ui.pantalla_configuracion">
+
+    <TextView
+        android:id="@+id/tituloConfiguracion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alatsi"
+        android:text="Configuración"
+        android:textAppearance="?attr/textAppearanceHeadlineMedium"
+        android:textColor="#E60000"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/label_anticipacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:text="Anticipación de Notificación (minutos)"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tituloConfiguracion" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/sliderAnticipacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#FF0000"
+        android:foregroundTint="#FF0000"
+        android:stepSize="5"
+        android:value="30"
+        android:valueFrom="0"
+        android:valueTo="120"
+        app:haloColor="#B3FB0303"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_anticipacion"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#F6F6F6"
+        app:tickColor="#8BC34A"
+        app:tickColorActive="#2196F3"
+        app:tickColorInactive="#FFEB3B"
+        app:trackColor="#E50000"
+        app:trackColorActive="#E50000"
+        app:trackColorInactive="#DCD3D3" />
+
+    <TextView
+        android:id="@+id/anticipacionValor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="30 minutos"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sliderAnticipacion" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchNotificaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Habilitar Notificaciones"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        android:textColor="@color/white"
+        android:textColorHighlight="#E50000"
+        android:textColorHint="#E50000"
+        android:textColorLink="#E50000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/anticipacionValor"
+        app:thumbTint="#E50000"
+        app:trackTint="#6F6F6F" />
+
+
+    <!-- Cambié textColor por android:textColor -->
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEnviarCorreo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Contactar al Desarrollador"
+        android:textAllCaps="false"
+        app:backgroundTint="#E50000"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchNotificaciones" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChangeLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Cambiar idioma"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#EB0D0D"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnEnviarCorreo" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirmarCambios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Guardar Cambios"
+        android:textAllCaps="false"
+        android:textColorLink="#E50000"
+        app:backgroundTint="#EB0D0D"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeLanguage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

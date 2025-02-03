@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +20,7 @@ class PantallaRegistroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_registro)
-
+        enableEdgeToEdge()
         val etNombre: EditText = findViewById(R.id.nombre)
         val etMail: EditText = findViewById(R.id.codigo)
         val etContraseña: EditText = findViewById(R.id.contraseña_nueva)
