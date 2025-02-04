@@ -13,8 +13,6 @@ import com.example.proyecto_tecno.database.UsuarioDao
 
 val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        // Aquí defines lo que debe cambiar, por ejemplo, agregar una nueva columna:
-        // database.execSQL("ALTER TABLE UsuarioEntity ADD COLUMN new_column INTEGER NOT NULL DEFAULT 0")
     }
 }
 
@@ -34,7 +32,7 @@ abstract class FindItDataBase : RoomDatabase() {
                     FindItDataBase::class.java,
                     "FindItDatabase"
                 )
-                    .addMigrations(MIGRATION_1_2)  // Añadir migración aquí
+                    .addMigrations(MIGRATION_1_2)
                     .build()
                 INSTANCE = instance
                 instance

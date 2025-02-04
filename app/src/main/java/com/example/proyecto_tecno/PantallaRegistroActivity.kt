@@ -42,7 +42,6 @@ class PantallaRegistroActivity : AppCompatActivity() {
             } else {
                 val usuario = UsuarioEntity(nombre = nombre, mail = mail, clave  = contraseña)
 
-                // Usar Room para registrar el usuario
                 lifecycleScope.launch(Dispatchers.IO) {
                     try {
                         val result = FinditApplication.dataBase.UsuarioDao().insertUsuario(usuario)
@@ -64,7 +63,7 @@ class PantallaRegistroActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            finish()  // Volver a la pantalla de login
+            finish()  // vuelve a login
         }
     }
 }

@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alatsi"
-        android:text="Configuración"
+        android:text="@string/settings"
         android:textAppearance="?attr/textAppearanceHeadlineMedium"
         android:textColor="#E60000"
         android:textSize="50sp"
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
-        android:text="Anticipación de Notificación (minutos)"
+        android:text="@string/notifications_time"
         android:textAppearance="?attr/textAppearanceBodyLarge"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="Habilitar Notificaciones"
+        android:text="@string/enable_notifications"
         android:textAppearance="?attr/textAppearanceBodyLarge"
         android:textColor="@color/white"
         android:textColorHighlight="#E50000"
@@ -87,16 +87,12 @@
         app:thumbTint="#E50000"
         app:trackTint="#6F6F6F" />
 
-
-    <!-- Cambié textColor por android:textColor -->
-
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEnviarCorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="Contactar al Desarrollador"
+        android:text="@string/contact_developer"
         android:textAllCaps="false"
         app:backgroundTint="#E50000"
         app:cornerRadius="16dp"
@@ -110,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Cambiar idioma"
+        android:text="@string/change_language"
         android:textColor="#FFFFFF"
         app:backgroundTint="#EB0D0D"
         app:cornerRadius="16dp"
@@ -124,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Guardar Cambios"
+        android:text="@string/save_changes"
         android:textAllCaps="false"
         android:textColorLink="#E50000"
         app:backgroundTint="#EB0D0D"

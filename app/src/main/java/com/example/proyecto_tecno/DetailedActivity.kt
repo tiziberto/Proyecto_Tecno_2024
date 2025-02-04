@@ -1,8 +1,14 @@
 package com.example.proyecto_tecno
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,12 +17,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.proyecto_tecno.AlarmNotification.Companion.NOTIFICATION_ID
 import com.example.proyecto_tecno.databse.EventoEntity
 import com.example.proyecto_tecno.databse.FinditApplication
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class DetailedActivity : AppCompatActivity() {
@@ -47,7 +55,7 @@ class DetailedActivity : AppCompatActivity() {
                 .load(evento.foto)
                 .into(imagen)
 
-            // Verificar si el evento está en la base de datos al iniciar la actividad
+            // verificar evento en base de datos al iniciar la actividad
             verificarEventoEnBaseDeDatos(evento)
 
             shareButton = findViewById(R.id.btnCompartir)
@@ -80,20 +88,19 @@ class DetailedActivity : AppCompatActivity() {
         }
     }
 
-    // Método para formatear la fecha
+    // formatear la fecha
     private fun formatDate(fecha: String): String {
         return try {
-            // Suponiendo que la fecha está en formato ISO 8601 (como "2025-02-10T10:00:00-03:00")
+            // la fecha está en formato ISO 8601 (2025-02-10T10:00:00-03:00)
             val formatEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault())
             val parsedDate = formatEntrada.parse(fecha)
 
-            // Formatear la fecha en el formato "DD/MM/YYYY HH:mm"
+            // formatear la fecha en el formato "DD/MM/YYYY HH:mm"
             val formatSalida = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
             parsedDate?.let {
                 formatSalida.format(it)
             } ?: ""
         } catch (e: Exception) {
-            // Si hay algún error al parsear la fecha, devolver una cadena vacía o manejar el error
             ""
         }
     }
@@ -104,7 +111,6 @@ class DetailedActivity : AppCompatActivity() {
             try {
                 FinditApplication.dataBase.EventoDao().deleteEvento(evento)
                 withContext(Dispatchers.Main) {
-                    //showMsg("Evento eliminado de favoritos")
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -118,18 +124,26 @@ class DetailedActivity : AppCompatActivity() {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
-
     private fun addToFavourites(evento: EventoEntity) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val result = FinditApplication.dataBase.EventoDao().addEvento(evento)
                 if (result > 0) {
                     withContext(Dispatchers.Main) {
-                        //showMsg("Evento añadido a favoritos con ID: $result")
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                            if (!alarmManager.canScheduleExactAlarms()) {
+                                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                                startActivity(intent)
+                            } else {
+                                scheduleNotification(applicationContext)
+                            }
+                        } else {
+                            scheduleNotification(applicationContext)
+                        }
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        //showMsg("Error al añadir el evento a favoritos")
                     }
                 }
             } catch (e: Exception) {
@@ -139,6 +153,48 @@ class DetailedActivity : AppCompatActivity() {
             }
         }
     }
+
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private fun scheduleNotification(context: Context) {
+        sharedPreferences = context.applicationContext.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val anticipacion = sharedPreferences.getInt("anticipacion", 30)
+        val notificacionesActivadas = sharedPreferences.getBoolean("notificaciones", true)
+
+        cancelarTodasLasAlarmas()
+        val intent = Intent(applicationContext,AlarmNotification::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            NOTIFICATION_ID,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        lifecycleScope.launch(Dispatchers.IO) {
+            // obtener los eventos desde la base de datos
+            val eventos = FinditApplication.dataBase.EventoDao().getAllEventos()
+            // recorrer los eventos
+            for (evento in eventos) {
+                val fechaEvento = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).parse(evento.fecha)
+                val tiempoEnMillis = fechaEvento?.time ?: continue
+                val tiempoAlarma = tiempoEnMillis - anticipacion * 60 * 1000
+
+                // Programar la alarma
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, tiempoAlarma, pendingIntent)
+            }
+        }
+    }
+
+    private val pendingIntents: MutableList<PendingIntent> = mutableListOf()
+
+    private fun cancelarTodasLasAlarmas() {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        for (pendingIntent in pendingIntents) {
+            alarmManager.cancel(pendingIntent)
+        }
+    }
+
 
     private fun compartirEvento(evento: EventoEntity) {
         val intent = Intent().apply {
@@ -152,7 +208,7 @@ class DetailedActivity : AppCompatActivity() {
             type = "image/*"
         }
 
-        // Abrir un "chooser" para que el usuario elija la aplicación para compartir
+        // abrir el "chooser"
         val shareIntent = Intent.createChooser(intent, "Compartir evento con...")
         startActivity(shareIntent)
     }
@@ -160,23 +216,20 @@ class DetailedActivity : AppCompatActivity() {
     private fun verificarEventoEnBaseDeDatos(evento: EventoEntity) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Buscar el evento en la base de datos por su ID
+                // buscar el evento en la base de datos por su ID
                 val eventoEnDB = FinditApplication.dataBase.EventoDao().getEventoById(evento.id)
-
-                // Actualizar la UI en el hilo principal
                 withContext(Dispatchers.Main) {
                     if (eventoEnDB != null) {
-                        // Si el evento está en la base de datos, cambiar la imagen del botón
+                        // si el evento está en la base de datos
                         myButton.setImageResource(R.drawable.baseline_star_24)
                         isIconClicked = true // Actualizar el estado del botón
                     } else {
-                        // Si el evento no está en la base de datos, usar la imagen de estrella vacía
+                        // si el evento no está en la base de dato
                         myButton.setImageResource(R.drawable.baseline_star_border_24)
                         isIconClicked = false // Actualizar el estado del botón
                     }
                 }
             } catch (e: Exception) {
-                // Manejar errores
                 e.printStackTrace()
             }
         }

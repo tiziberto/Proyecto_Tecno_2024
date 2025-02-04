@@ -37,4 +37,14 @@
 
     <string name="succes_login">Ingreso exitoso 🎉</string>
     <string name="failed_login">Mail o contraseña incorrectos ❌</string>
+
+    <string name="my_profile">Mi Perfil</string>
+    <string name="insert_password">Ingrese su contraseña</string>
+    <string name="save_changes">Confirmar cambios</string>
+
+    <string name="notifications_time">Anticipacion de notificaciones (minutos) </string>
+    <string name="minutes">Minutos</string>
+    <string name="enable_notifications">Habilitar notificaciones</string>
+    <string name="contact_developer">Contactar al desarrollador</string>
+    <string name="change_language">Cambiar idioma</string>
 </resources>

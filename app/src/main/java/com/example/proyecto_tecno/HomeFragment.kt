@@ -36,73 +36,71 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var eventosFiltrados: MutableList<EventoEntity> = mutableListOf() // Lista filtrada de eventos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Inicializa Retrofit y el servicio de API
+        // inicia Retrofit y el servicio de API
         setupRetrofit()
 
-        // Configura el RecyclerView
+        // configura el RecyclerView
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerEventos)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = EventosAdapter(eventosList) // Inicializa el adaptador con la lista vacía
+        adapter = EventosAdapter(eventosList) // inicializa el adapter con la lista vacia
         recyclerView.adapter = adapter
 
-        // Configura el buscador
         val buscador: EditText = view.findViewById(R.id.buscador)
         buscador.addTextChangedListener { userFilter ->
             val filterText = normalizeString(userFilter.toString().trim())
             val eventosFiltered = if (filterText.isEmpty()) {
-                eventosList // Si el buscador está vacío, muestra todos los eventos
+                eventosList
             } else {
-                // Filtra los eventos por nombre, descripción o ubicación
                 eventosList.filter { evento ->
                     normalizeString(evento.nombre).contains(filterText, ignoreCase = true) ||
-                            normalizeString(evento.descripcion).contains(filterText, ignoreCase = true) ||
-                            normalizeString(evento.ubicacion).contains(filterText, ignoreCase = true)
+                    normalizeString(evento.descripcion).contains(filterText, ignoreCase = true) ||
+                    normalizeString(evento.ubicacion).contains(filterText, ignoreCase = true)
                 }
             }
-            adapter.updateEventos(eventosFiltered) // Actualiza la lista del adaptador
+            adapter.updateEventos(eventosFiltered)
 
         }
 
-        // Configura el evento de clic en el adaptador
+        // clic en el adapter
         adapter.onItemClick = { evento ->
             val intent = Intent(requireContext(), DetailedActivity::class.java)
-            intent.putExtra("evento", evento) // Pasa el evento seleccionado a la actividad de detalle
+            intent.putExtra("evento", evento)
             startActivity(intent)
         }
 
-        // Configura el botón de filtrar favoritos
+        // filtrar favoritos
         val btnFiltrarFavoritos: Button = view.findViewById(R.id.btnFiltrarFavoritos)
         btnFiltrarFavoritos.setOnClickListener {
-            isFiltroActivo = !isFiltroActivo // Alternar el estado del filtro
+            isFiltroActivo = !isFiltroActivo // alternar el filtro
             if (isFiltroActivo) {
-                filtrarFavoritos() // Mostrar solo los eventos en la base de datos
-                btnFiltrarFavoritos.text = getString(R.string.show_all) // Cambiar el texto del botón
+                filtrarFavoritos()
+                btnFiltrarFavoritos.text = getString(R.string.show_all)
             } else {
-                mostrarListaCompleta() // Mostrar todos los eventos
-                btnFiltrarFavoritos.text = getString(R.string.show_favorites) // Cambiar el texto del botón
+                mostrarListaCompleta()
+                btnFiltrarFavoritos.text = getString(R.string.show_favorites)
             }
         }
 
-        // Carga los eventos desde la API
+        // carga de los eventos desde la API
         getEventos()
     }
 
     private fun mostrarListaCompleta() {
-        adapter.updateEventos(eventosList) // Actualiza el RecyclerView con la lista completa
+        adapter.updateEventos(eventosList) // actualiza el RecyclerView con la lista completa
     }
 
-    // Filtra los eventos para mostrar solo los que están en la base de datos
+    // mostrar solo los eventos en bd
     private fun filtrarFavoritos() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Obtener los IDs de los eventos en la base de datos
+                // obtener los IDs de bd
                 val idsFavoritos = FinditApplication.dataBase.EventoDao().getAllIds()
 
-                // Filtrar la lista de eventos para incluir solo los que están en la base de datos
+                // filtrar
                 eventosFiltrados.clear()
                 eventosFiltrados.addAll(eventosList.filter { it.id in idsFavoritos })
 
-                // Actualizar el RecyclerView en el hilo principal
+                // actualizar el RecyclerView
                 withContext(Dispatchers.Main) {
                     adapter.updateEventos(eventosFiltrados)
                 }
@@ -114,7 +112,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    // Configura Retrofit y el servicio de API
     private fun setupRetrofit() {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
@@ -123,18 +120,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         service = retrofit.create(EventoService::class.java)
     }
 
-    // Obtiene los eventos desde la API y actualiza la lista
+    // obtiene los eventos desde la API y actualiza la lista
     private fun getEventos() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val eventos = service.getEventos() // Llama al servicio para obtener los eventos
-                Log.d("API_RESPONSE", "Eventos obtenidos: $eventos") // Inspecciona la respuesta
+                val eventos = service.getEventos() // s
+                Log.d("API_RESPONSE", "Eventos obtenidos: $eventos") //
 
                 lifecycleScope.launch(Dispatchers.Main) {
                     if (eventos.isNotEmpty()) {
                         eventosList.clear()
-                        eventosList.addAll(eventos) // Agrega los eventos a la lista
-                        adapter.updateEventos(eventosList) // Actualiza el adaptador
+                        eventosList.addAll(eventos)
+                        adapter.updateEventos(eventosList)
                     } else {
                         Log.d("API_RESPONSE", "La lista de eventos está vacía")
                     }
@@ -145,14 +142,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    // Normaliza una cadena eliminando acentos y convirtiéndola a minúsculas
+    // normalizar cadenas de busqueda
     private fun normalizeString(input: String): String {
         val lowerCased = input.lowercase()
         return Normalizer.normalize(lowerCased, Normalizer.Form.NFD)
             .replace(Regex("\\p{M}"), "")
     }
 
-    // Muestra un mensaje en la UI
     private fun showMsg(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }

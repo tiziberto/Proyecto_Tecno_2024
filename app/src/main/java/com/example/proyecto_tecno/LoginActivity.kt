@@ -1,13 +1,25 @@
 package com.example.proyecto_tecno
 
+import android.Manifest
+import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.proyecto_tecno.database.UsuarioRepository
 import com.example.proyecto_tecno.databse.FindItDataBase
@@ -16,6 +28,7 @@ import com.example.proyecto_tecno.viewmodels.UsuarioViewModel
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var password: EditText
     private lateinit var togglePasswordVisibility: Button
     private lateinit var usuarioViewModel: UsuarioViewModel
@@ -23,10 +36,20 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var editTextPassword: EditText
     private lateinit var btnIniciarSesion: Button
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                Toast.makeText(this, "Permiso de notificaciones concedido ✅", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Permiso de notificaciones denegado ❌", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         enableEdgeToEdge()
+        createChannel() // para las notis
         val database = FindItDataBase.getDatabase(this)
         val repository = UsuarioRepository(database.UsuarioDao())
         usuarioViewModel = UsuarioViewModel(repository)
@@ -52,9 +75,9 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val recuperarpassword : Button = findViewById(R.id.recuperarpassword)
-        recuperarpassword.setOnClickListener{
-            val intent: Intent = Intent(this, PantallaRecuperarPasswordActivity::class.java)
+        val recuperarPassword: Button = findViewById(R.id.recuperarpassword)
+        recuperarPassword.setOnClickListener {
+            val intent = Intent(this, PantallaRecuperarPasswordActivity::class.java)
             startActivity(intent)
         }
 
@@ -71,12 +94,26 @@ class LoginActivity : AppCompatActivity() {
             }
             password.setSelection(password.text.length)
         }
-
-
     }
 
+    companion object {
+        const val MY_CHANNEL_ID = "myChannel"
+    }
 
-
+    private fun createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                MY_CHANNEL_ID,
+                "My Super Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "Canal para Find It"
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
 
     private fun iniciarSesion(email: String, password: String) {
         lifecycleScope.launch {
@@ -86,15 +123,15 @@ class LoginActivity : AppCompatActivity() {
                 with(sharedPref.edit()) {
                     putString("email", usuario.mail)
                     putString("nombre", usuario.nombre)
-                    putString("contraseña", usuario.clave)  // Solo si es necesario
+                    putString("contraseña", usuario.clave)
                     apply()
                 }
-                Toast.makeText(this@LoginActivity, getString(R.string.succes_login), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Inicio de sesión exitoso ✅", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@LoginActivity, PantallaHomeActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this@LoginActivity, getString(R.string.failed_login), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Error al iniciar sesión ❌", Toast.LENGTH_SHORT).show()
             }
         }
     }

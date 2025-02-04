@@ -1,7 +1,10 @@
 package com.example.proyecto_tecno
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.proyecto_tecno.databinding.ActivityPantallaHomeBinding
@@ -27,6 +30,13 @@ class PantallaHomeActivity : AppCompatActivity() {
            true
 
        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                101
+            )
+        }
 
     }
 

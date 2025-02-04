@@ -1,6 +1,7 @@
 package com.example.proyecto_tecno
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,7 +41,7 @@ class ProfileFragment : Fragment() {
         editTextUsuario.hint = emailGuardado
         editTextNombre.hint = nombreGuardado
 
-        // acción del botón "Confirmar Cambios"
+        // accion del boton "Confirmar Cambios"
         btnConfirmarCambios.setOnClickListener {
             val nuevoEmail = editTextUsuario.text.toString().trim()
             val nuevoNombre = editTextNombre.text.toString().trim()
@@ -78,6 +79,22 @@ class ProfileFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Contraseña incorrecta ❌", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // cerrar sesion
+        val btnLogout = view.findViewById<Button>(R.id.btn_logout)
+        btnLogout.setOnClickListener {
+            // borrar sharedpreferences
+            with(sharedPref.edit()) {
+                remove("email")
+                remove("nombre")
+                remove("contraseña") // Opcional
+                apply()
+            }
+            // ir a login
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Limpiar el stack de actividades
+            startActivity(intent)
         }
 
 

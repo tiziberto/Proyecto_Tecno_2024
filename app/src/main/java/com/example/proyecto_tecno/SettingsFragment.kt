@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.proyecto_tecno.R
 import com.google.android.material.button.MaterialButton
@@ -44,7 +46,7 @@ class SettingsFragment : Fragment() {
         cargarPreferencias()
 
         sliderAnticipacion.addOnChangeListener { _, value, _ ->
-            anticipacionValor.text = "${value.toInt()} minutos"
+            anticipacionValor.text = "${value.toInt()} " + getString(R.string.minutes)
         }
 
         btnConfirmarCambios.setOnClickListener {
@@ -91,4 +93,5 @@ class SettingsFragment : Fragment() {
         val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
         startActivity(intent)
     }
+
 }

@@ -1,12 +1,20 @@
 package com.example.proyecto_tecno.databse
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Entity(tableName = "EventoEntity")
 data class EventoEntity(
+
     @PrimaryKey val id: Long = 0,
     val nombre: String,
     val descripcion: String,

@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
-@Dao  // Añadido para marcar esta interfaz como DAO
+@Dao
 interface EventoDao {
     @Query("SELECT * FROM EventoEntity")
     fun getAllEventos(): MutableList<EventoEntity>
